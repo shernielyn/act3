@@ -1,1 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Model Viewer</title>
+    <style>
+        body { margin: 0; }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+    <!-- The Three.js and GLTFLoader scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/examples/js/loaders/GLTFLoader.js"></script>
+
+    <script>
+        // Your Three.js code to load the 3D model
+
+        // Create scene, camera, and renderer
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // Set up the GLTFLoader to load the 3D model
+        const loader = new THREE.GLTFLoader();
+
+        // Replace this with the raw GitHub URL of your model
+        loader.load(
+            'https://github.com/your-username/your-repository/raw/main/path/to/your/model.glb', // Your actual model URL
+            (gltf) => {
+                scene.add(gltf.scene);
+                console.log('Model loaded');
+            },
+            undefined, // Optional: progress callback
+            (error) => {
+                console.error('Error loading the model:', error);
+            }
+        );
+
+        // Set camera position
+        camera.position.z = 5;
+
+        // Basic animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            renderer.render(scene, camera);
+        }
+
+        animate();
+    </script>
+</body>
+</html>
 
